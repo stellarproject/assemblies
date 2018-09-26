@@ -23,4 +23,4 @@ To specify `vab` args:
 
 `make VAB_ARGS=-p containerd`
 
-[Photo by Frans Van Heerden on Pexes](https://www.pexels.com/photo/grey-and-orange-spaceship-700015/)
+[Photo by Frans Van Heerden on Pexels](https://www.pexels.com/photo/grey-and-orange-spaceship-700015/)
