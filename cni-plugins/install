@@ -1,12 +1,12 @@
 #!/bin/bash
-echo "Installing CNI Plugins"
+echo "installing cni plugins"
 DEST=/opt/cni/bin
 mkdir -p $DEST
 
 for c in bridge loopback macvlan dhcp; do
-    echo "installing plugin: $c"
+    echo " -> $c"
     cp -f $c $DEST/
     chmod +x $DEST/$c
 done
 
-echo "installation successful"
+echo "cni plugin installation successful"
