@@ -1,0 +1,15 @@
+#!/bin/bash
+for c in ctr containerd containerd-shim containerd-shim-runc-v1 runc; do
+    echo " -> installing $c"
+    cp -f $c /usr/local/bin/
+    chmod +x /usr/local/bin/$c
+done
+
+echo " -> configuring systemd"
+cp containerd.service /etc/systemd/system/containerd.service
+systemctl daemon-reload
+systemctl enable containerd
+systemctl restart containerd
+
+echo " -> $(containerd -v)"
+echo " -> installation successful"

@@ -1,0 +1,15 @@
+#!/bin/bash
+for c in buildctl buildkitd; do
+    echo " -> installing $c"
+    cp -f $c /usr/local/bin/
+    chmod +x /usr/local/bin/$c
+done
+
+echo " -> configuring systemd"
+cp buildkit.service /etc/systemd/system/buildkit.service
+systemctl daemon-reload
+systemctl enable buildkit
+systemctl restart buildkit
+
+echo " -> $(buildkitd -v)"
+echo " -> installation successful"
