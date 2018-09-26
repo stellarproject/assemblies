@@ -21,6 +21,6 @@ To specify a different namespace:
 
 To specify `vab` args:
 
-`make VAB_ARGS=-p containerd`
+`make VAB_ARGS="--push" containerd`
 
 [Photo by Frans Van Heerden on Pexels](https://www.pexels.com/photo/grey-and-orange-spaceship-700015/)
