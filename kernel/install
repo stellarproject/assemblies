@@ -1,10 +1,9 @@
 #!/bin/bash
+echo "Installing kernel"
 
-echo " -> installing kernel"
-dpkg -i ./linux-headers.deb
-dpkg -i ./linux-image.deb
+dpkg -i ./linux-headers.deb >/dev/null
+dpkg -i ./linux-image.deb >/dev/null
 
-apt-get -f -y install
-
-echo " -> installation complete"
-echo " NOTE: you must reboot to activate the new kernel..."
+echo "installation complete"
+echo ""
+echo "NOTE: you must reboot to activate the new kernel..."
