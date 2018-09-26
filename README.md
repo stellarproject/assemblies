@@ -5,6 +5,8 @@
 This repo contains build manifests for creating Stellar Assemblies.  These are core components that are the foundation for the system.
 
 # Build
+Building assemblies requires [vab](https://github.com/stellarproject/vab).
+
 To build an individual assembly:
 
 `make containerd`
