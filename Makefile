@@ -14,7 +14,7 @@ $(ASSEMBLIES):
 	@cd $@; vab build -r docker.io/${IMAGE_NAMESPACE}/$@:latest ${VAB_ARGS}
 
 build-kernel:
-	@vab build --local
+	@cd kernel; vab build --local
 
 clean:
 	@rm -rf ./*.deb
