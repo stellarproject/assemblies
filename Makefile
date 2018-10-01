@@ -14,7 +14,7 @@ $(ASSEMBLIES):
 	@cd $@; vab build -r docker.io/${IMAGE_NAMESPACE}/$@:latest ${VAB_ARGS}
 
 build-kernel:
-	@buildctl build --frontend=dockerfile.v0 --frontend-opt filename=Dockerfile --local context=. --local dockerfile=. --progress plain --exporter=local --exporter-opt output=.
+	@vab build --local
 
 clean:
 	@rm -rf ./*.deb
