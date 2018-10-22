@@ -43,6 +43,6 @@ RUN make -j "$(getconf _NPROCESSORS_ONLN)" KDEB_PKGVERSION=$PKGVERSION INSTALL_M
 
 FROM scratch
 
-COPY --from=builder /linux-headers-4.19_1terra_amd64.deb /linux-headers.deb
-COPY --from=builder /linux-image-4.19_1terra_amd64.deb /linux-image.deb
+COPY --from=builder /linux-headers-4.19.0_1terra_amd64.deb /linux-headers.deb
+COPY --from=builder /linux-image-4.19.0_1terra_amd64.deb /linux-image.deb
 COPY install /install
