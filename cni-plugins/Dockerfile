@@ -8,7 +8,7 @@ FROM build as cni
 RUN apt-get update && apt-get install -y build-essential
 RUN git clone https://github.com/containernetworking/plugins /go/src/github.com/containernetworking/plugins
 WORKDIR /go/src/github.com/containernetworking/plugins
-RUN ./build.sh
+RUN ./build_linux.sh
 
 FROM scratch
 COPY --from=cni /go/src/github.com/containernetworking/plugins/bin/bridge /

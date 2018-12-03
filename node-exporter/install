@@ -1,0 +1,15 @@
+#!/bin/bash
+echo "installing node exporter"
+DEST=/usr/bin/
+mkdir -p $DEST
+
+cp -f node_exporter $DEST/node_exporter
+chmod +x $DEST/node_exporter
+
+echo " -> configuring systemd"
+cp node-exporter.service /etc/systemd/system/node-exporter.service
+systemctl daemon-reload
+systemctl enable node-exporter
+systemctl restart node-exporter
+
+echo "node exporter installation successful"

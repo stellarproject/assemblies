@@ -1,0 +1,13 @@
+[Unit]
+Description=node-exporter
+Documentation=
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/node_exporter
+LimitNOFILE=1048576
+LimitNPROC=infinity
+LimitCORE=infinity
+
+[Install]
+WantedBy=multi-user.target
