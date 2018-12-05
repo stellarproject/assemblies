@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 echo "installing containerd"
 for c in ctr containerd containerd-shim containerd-shim-runc-v1 runc; do
     echo " -> $c"

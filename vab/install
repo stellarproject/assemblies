@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e
+BINARY=/usr/local/bin/vab
+
+echo "installing vab"
+cp -f vab $BINARY
+chmod +x $BINARY
+
+echo " -> $(vab -v)"
+echo "vab installation successful"

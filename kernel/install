@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 echo "installing kernel"
 
 dpkg -i ./linux-headers.deb >/dev/null

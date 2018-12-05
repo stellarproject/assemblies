@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 echo "installing node exporter"
 DEST=/usr/bin/
 mkdir -p $DEST

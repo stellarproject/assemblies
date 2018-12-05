@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 echo "installing buildkit"
 for c in buildctl buildkitd; do
     echo " -> $c"
