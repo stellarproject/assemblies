@@ -17,10 +17,10 @@ RUN apt-get update && apt-get install -y \
 	git \
 	make
 
-ENV WIREGUARD_VERSION=0.0.20181119
+ENV WIREGUARD_VERSION=47d05061f0d9f473b8e9423012f92164f833d3f0
 ENV WIREGUARD_URL=https://git.zx2c4.com/WireGuard/snapshot/WireGuard-${WIREGUARD_VERSION}.tar.xz
 
-ADD https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.19.6.tar.xz linux.tar.xz
+ADD https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.19.7.tar.xz linux.tar.xz
 
 RUN mkdir /linux && \
 	tar --strip-components=1 -xpf linux.tar.xz -C /linux
@@ -43,6 +43,6 @@ RUN make -j "$(getconf _NPROCESSORS_ONLN)" KDEB_PKGVERSION=$PKGVERSION INSTALL_M
 
 FROM scratch
 
-COPY --from=builder /linux-headers-4.19.6_1terra_amd64.deb /linux-headers.deb
-COPY --from=builder /linux-image-4.19.6_1terra_amd64.deb /linux-image.deb
+COPY --from=builder /linux-headers-4.19.7_1terra_amd64.deb /linux-headers.deb
+COPY --from=builder /linux-image-4.19.7_1terra_amd64.deb /linux-image.deb
 COPY install /install
