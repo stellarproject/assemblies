@@ -7,6 +7,19 @@ for c in buildctl buildkitd; do
     chmod +x /usr/local/bin/$c
 done
 
+CONFIG=/etc/buildkitd.conf
+
+echo " -> configuring buildkit"
+if [ ! -z "${TERRA_BUILDKIT_ADDR}" ]; then
+    cat << EOF > ${CONFIG}
+[grpc]
+address = ["${TERRA_BUILDKIT_ADDR}"]
+EOF
+else
+    # defaults
+    touch ${CONFIG}
+fi
+
 echo " -> configuring systemd"
 cp buildkit.service /etc/systemd/system/buildkit.service
 systemctl daemon-reload
