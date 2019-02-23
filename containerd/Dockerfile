@@ -1,41 +1,26 @@
-FROM golang:1.11 AS build
-
-ARG GOOS
-ARG GOARCH
-RUN apt-get update && apt-get install -y git make curl build-essential git autoconf automake libtool unzip file bzr
-RUN git clone https://github.com/google/protobuf /tmp/protobuf && \
-    cd /tmp/protobuf && \
-    ./autogen.sh && \
-    ./configure && make install
-RUN go get -v github.com/LK4D4/vndr
-RUN go get -v github.com/golang/protobuf/protoc-gen-go
-RUN go get -v github.com/gogo/protobuf/protoc-gen-gofast
-RUN go get -v github.com/gogo/protobuf/proto
-RUN go get -v github.com/gogo/protobuf/gogoproto
-RUN go get -v github.com/gogo/protobuf/protoc-gen-gogo
-RUN go get -v github.com/gogo/protobuf/protoc-gen-gogofast
-RUN go get -v github.com/stevvooe/protobuild
-RUN go get -v github.com/golang/lint/golint
-RUN go get -v github.com/tebeka/go2xunit
-
-FROM build as runc
-RUN apt-get update && apt-get install -y libseccomp-dev libapparmor-dev
-RUN git clone https://github.com/opencontainers/runc /go/src/github.com/opencontainers/runc
-WORKDIR /go/src/github.com/opencontainers/runc
-RUN make BUILDTAGS="seccomp apparmor"
-
-FROM build as containerd
-RUN apt-get update && apt-get install -y libseccomp-dev btrfs-tools
+FROM golang:1.11 as containerd
 RUN git clone https://github.com/containerd/containerd /go/src/github.com/containerd/containerd
 WORKDIR /go/src/github.com/containerd/containerd
+
+FROM containerd AS proto3
+RUN apt-get update && apt-get install -y autoconf automake g++ libtool unzip
+RUN ./script/setup/install-protobuf
+
+# Install runc
+FROM containerd AS runc
+RUN apt-get update && apt-get install -y curl libseccomp-dev
+RUN ./script/setup/install-runc
+
+FROM containerd AS build
+RUN apt-get update && apt-get install -y btrfs-tools gcc git libseccomp-dev make xfsprogs
+
+COPY --from=proto3 /usr/local/bin/protoc /usr/local/bin/protoc
+COPY --from=proto3 /usr/local/include/google /usr/local/include/google
+
 RUN make
 
 FROM scratch
-COPY containerd.service /
+COPY containerd.service /containerd.service
 COPY install /install
-COPY --from=runc /go/src/github.com/opencontainers/runc/runc /bin/
-COPY --from=containerd /go/src/github.com/containerd/containerd/bin/ctr /bin/
-COPY --from=containerd /go/src/github.com/containerd/containerd/bin/containerd /bin/
-COPY --from=containerd /go/src/github.com/containerd/containerd/bin/containerd-shim /bin/
-COPY --from=containerd /go/src/github.com/containerd/containerd/bin/containerd-shim-runc-v1 /bin/
-COPY --from=containerd /go/src/github.com/containerd/containerd/bin/containerd-shim-runc-v2 /bin/
+COPY --from=build /go/src/github.com/containerd/containerd/bin/* /
+COPY --from=runc /usr/local/sbin/runc /runc
