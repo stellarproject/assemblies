@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y \
 	git \
 	make
 
-ENV KERNEL_VERSION=4.20.11
+ENV KERNEL_VERSION=4.20.12
 ENV WIREGUARD_VERSION=0.0.20190123
 ENV WIREGUARD_URL=https://git.zx2c4.com/WireGuard/snapshot/WireGuard-${WIREGUARD_VERSION}.tar.xz
 
@@ -44,8 +44,8 @@ RUN make -j "$(getconf _NPROCESSORS_ONLN)" KDEB_PKGVERSION=$PKGVERSION INSTALL_M
 
 FROM scratch
 
-ENV KERNEL_VERSION=4.20.11
+ENV KERNEL_VERSION=4.20.12
 
-COPY --from=builder /linux-headers-${KERNEL_VERSION}_1terra_amd64.deb /linux-headers.deb
-COPY --from=builder /linux-image-${KERNEL_VERSION}_1terra_amd64.deb /linux-image.deb
+COPY --from=builder /linux-headers-${KERNEL_VERSION}_1terra_amd64.deb /linux-${KERNEL_VERSION}-headers.deb
+COPY --from=builder /linux-image-${KERNEL_VERSION}_1terra_amd64.deb /linux-${KERNEL_VERSION}-image.deb
 COPY install /install
