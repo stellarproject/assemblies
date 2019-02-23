@@ -22,7 +22,6 @@ FROM build as runc
 RUN apt-get update && apt-get install -y libseccomp-dev libapparmor-dev
 RUN git clone https://github.com/opencontainers/runc /go/src/github.com/opencontainers/runc
 WORKDIR /go/src/github.com/opencontainers/runc
-RUN git reset --hard 20aff4f0488c6d4b8df4d85b4f63f1f704c11abd
 RUN make BUILDTAGS="seccomp apparmor"
 
 FROM build as containerd
@@ -39,3 +38,4 @@ COPY --from=containerd /go/src/github.com/containerd/containerd/bin/ctr /
 COPY --from=containerd /go/src/github.com/containerd/containerd/bin/containerd /
 COPY --from=containerd /go/src/github.com/containerd/containerd/bin/containerd-shim /
 COPY --from=containerd /go/src/github.com/containerd/containerd/bin/containerd-shim-runc-v1 /
+COPY --from=containerd /go/src/github.com/containerd/containerd/bin/containerd-shim-runc-v2 /
