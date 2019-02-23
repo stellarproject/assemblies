@@ -33,9 +33,9 @@ RUN make
 FROM scratch
 COPY containerd.service /
 COPY install /install
-COPY --from=runc /go/src/github.com/opencontainers/runc/runc /
-COPY --from=containerd /go/src/github.com/containerd/containerd/bin/ctr /
-COPY --from=containerd /go/src/github.com/containerd/containerd/bin/containerd /
-COPY --from=containerd /go/src/github.com/containerd/containerd/bin/containerd-shim /
-COPY --from=containerd /go/src/github.com/containerd/containerd/bin/containerd-shim-runc-v1 /
-COPY --from=containerd /go/src/github.com/containerd/containerd/bin/containerd-shim-runc-v2 /
+COPY --from=runc /go/src/github.com/opencontainers/runc/runc /bin/
+COPY --from=containerd /go/src/github.com/containerd/containerd/bin/ctr /bin/
+COPY --from=containerd /go/src/github.com/containerd/containerd/bin/containerd /bin/
+COPY --from=containerd /go/src/github.com/containerd/containerd/bin/containerd-shim /bin/
+COPY --from=containerd /go/src/github.com/containerd/containerd/bin/containerd-shim-runc-v1 /bin/
+COPY --from=containerd /go/src/github.com/containerd/containerd/bin/containerd-shim-runc-v2 /bin/
