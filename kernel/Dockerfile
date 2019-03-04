@@ -21,7 +21,7 @@ ENV KERNEL_VERSION=5.0
 ENV WIREGUARD_VERSION=0.0.20190227
 ENV WIREGUARD_URL=https://git.zx2c4.com/WireGuard/snapshot/WireGuard-${WIREGUARD_VERSION}.tar.xz
 
-ADD https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-${KERNEL_VERSION}.tar.xz linux.tar.xz
+ADD https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-${KERNEL_VERSION}.tar.xz linux.tar.xz
 
 RUN mkdir /linux && \
 	tar --strip-components=1 -xpf linux.tar.xz -C /linux
