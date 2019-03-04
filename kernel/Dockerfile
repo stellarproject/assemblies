@@ -44,8 +44,10 @@ RUN make -j "$(getconf _NPROCESSORS_ONLN)" KDEB_PKGVERSION=$PKGVERSION INSTALL_M
 
 FROM scratch
 
-ENV KERNEL_VERSION=5.0
+ENV KERNEL_VERSION=5.0.0
 
 COPY --from=builder /linux-headers-${KERNEL_VERSION}_1terra_amd64.deb /linux-headers.deb
 COPY --from=builder /linux-image-${KERNEL_VERSION}_1terra_amd64.deb /linux-image.deb
+COPY --from=builder /linux-image-${KERNEL_VERSION}-dbg_1terra_amd64.deb /linux-image.deb
+COPY --from=builder /linux-libc-dev_1terra_amd64.deb /linux-image.deb
 COPY install /install
