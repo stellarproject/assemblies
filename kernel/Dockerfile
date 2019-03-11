@@ -48,6 +48,6 @@ ENV KERNEL_VERSION=5.0.1
 
 COPY --from=builder /linux-headers-${KERNEL_VERSION}_1terra_amd64.deb /linux-headers.deb
 COPY --from=builder /linux-image-${KERNEL_VERSION}_1terra_amd64.deb /linux-image.deb
-COPY --from=builder /linux-image-${KERNEL_VERSION}-dbg_1terra_amd64.deb /linux-image.deb
-COPY --from=builder /linux-libc-dev_1terra_amd64.deb /linux-image.deb
+COPY --from=builder /linux-image-${KERNEL_VERSION}-dbg_1terra_amd64.deb /linux-image-dbg.deb
+COPY --from=builder /linux-libc-dev_1terra_amd64.deb /linux-libc-dev.deb
 COPY install /install
