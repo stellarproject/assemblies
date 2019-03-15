@@ -14,9 +14,6 @@ $(ASSEMBLIES):
 	@echo " -> building $@"
 	@cd $@; vab build -r ${REGISTRY}/${IMAGE_NAMESPACE}/$@:latest ${VAB_ARGS}
 
-build-kernel:
-	@cd kernel; vab build --local
-
 clean:
 	@rm -rf ./*.deb
 
