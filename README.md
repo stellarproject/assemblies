@@ -2,10 +2,11 @@
 
 ![Assembly](assembly.jpg)
 
-This repo contains build manifests for creating Stellar Assemblies.  These are core components that are the foundation for the system.
-As the artifact from these builds are scratch images they are intended to be used with [Terra](https://github.com/stellarproject/terra).
+This repo contains build manifests for creating Stellar Assemblies. These are core components that are the foundation for the system.
+As the artifact from these builds are scratch images they are intended to be used with [TerraOS](https://github.com/stellarproject/terraos).
 
 # Build
+
 Building assemblies requires [Vab](https://github.com/stellarproject/vab).
 
 To build an individual assembly:
